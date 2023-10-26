@@ -33,12 +33,14 @@
             -moz-tab-size: 4;
             tab-size: 4;
             font-family: Poppins, sans-serif;
-            font-feature-settings: normal
+            font-feature-settings: normal;
+            color: #65625E;
         }
 
         body {
             margin: 0;
-            line-height: inherit
+            line-height: inherit,
+            color: #65625E;
         }
 
         hr {
