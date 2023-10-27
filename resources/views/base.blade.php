@@ -35,10 +35,11 @@
             font-size: 2rem;
         }
 
-        ul, li, a {
+        ul,
+        li,
+        a {
             font-family: Poppins;
             font-size: 1rem;
-            /* font-weight: 700; */
         }
 
         @layer demo {
@@ -50,16 +51,22 @@
 
 </head>
 
+@php
+    $routeName = request()
+        ->route()
+        ->getName();
+@endphp
+
 <body>
 
     <div class="container mt-5">
 
         <ul class="nav nav-underline nav-justified mb-5">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{route('blog.index')}}">Accueil</a>
+                <a class="nav-link" aria-current="page" href="/">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Blog</a>
+                <a @class(['nav-link', 'active' => str_starts_with($routeName, 'blog.')]) href="{{ route('blog.index') }}">Blog</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
