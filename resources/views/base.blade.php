@@ -45,6 +45,7 @@
         @layer demo {
             button {
                 all: unset;
+                font-family: Anton;
             }
         }
     </style>
@@ -59,7 +60,7 @@
 
 <body>
 
-    <div class="container mt-5">
+    <div class="container mt-5 mb-3">
 
         <ul class="nav nav-underline nav-justified mb-5">
             <li class="nav-item">
@@ -76,11 +77,16 @@
             </li>
         </ul>
 
-        @yield('content')
-
     </div>
 
-
+    <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @yield('content')
+    </div>
 
 </body>
 
