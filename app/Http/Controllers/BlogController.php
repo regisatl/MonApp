@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -14,6 +15,10 @@ class BlogController extends Controller
 
       public function index(): View
       {
+
+            $post = Post::find(2);
+
+            dd($post->category()->name);
 
             return view('blog.index', [
                   'posts' => Post::paginate(1)
