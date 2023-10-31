@@ -40,7 +40,7 @@
         body {
             margin: 0;
             line-height: inherit,
-            color: #65625E;
+                color: #65625E;
         }
 
         hr {

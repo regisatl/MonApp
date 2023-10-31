@@ -12,13 +12,12 @@ class BlogController extends Controller
 {
 
       //
-
       public function index(): View
       {
 
             $post = Post::find(2);
 
-            dd($post->category()->name);
+           $tag = $post->tags;
 
             return view('blog.index', [
                   'posts' => Post::paginate(1)

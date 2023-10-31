@@ -32,7 +32,20 @@
 
         h1 {
             font-family: Anton;
-            font-size: 2rem;
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+        }
+
+        h3 {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        p {
+            font-weight: 500;
         }
 
         ul,
@@ -40,6 +53,7 @@
         a {
             font-family: Poppins;
             font-size: 1rem;
+            font-weight: 600;
         }
 
         @layer demo {
@@ -73,7 +87,7 @@
                 <a class="nav-link" href="#">Link</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="#">Link</a>
             </li>
         </ul>
 
