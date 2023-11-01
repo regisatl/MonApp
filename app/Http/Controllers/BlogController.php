@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -15,12 +16,8 @@ class BlogController extends Controller
       public function index(): View
       {
 
-            $post = Post::find(2);
-
-           $tag = $post->tags;
-
             return view('blog.index', [
-                  'posts' => Post::paginate(1)
+                  'posts' => Post::with('tags', 'category')->paginate(10)
             ]);
       }
 
@@ -41,6 +38,8 @@ class BlogController extends Controller
             $post = new Post();
             return view('blog.create', [
                   'post' => $post,
+                  'categories' => Category::select('id', 'name')->get(),
+                  'tags' => Tag::select('id', 'name')->get()
             ]);
       }
 
@@ -55,13 +54,19 @@ class BlogController extends Controller
       public function edit(Post $post)
       {
             return view('blog.edit', [
-                  'post' => $post
+                  'post' => $post,
+                  'categories' => Category::select('id', 'name')->get(),
+                  'tags' => Tag::select('id', 'name')->get()
+
             ]);
       }
 
       public function update(Post $post, CreatePostRequest $request)
       {
+
+
             $post->update($request->validated());
+            $post->tags()->sync($request->validated('tags'));
             return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])->with('success', 'Your blog has been updated');
       }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
       return view('welcome');
 });
+
+Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'signin']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::prefix('/blog')->name('blog.')->controller(BlogController::class)->group(function () {
 

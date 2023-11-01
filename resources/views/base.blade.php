@@ -53,7 +53,7 @@
         a {
             font-family: Poppins;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         @layer demo {
@@ -86,8 +86,28 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+            @auth
+                <li class="nav-item">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </button>
+                        <ul class="dropdown-menu px-5">
+                            {{-- <form class="nav-item px-2" action="{{ route('auth.logout') }}" method="post">
+                                    @method("delete")
+                                    @csrf
+                                    <button class="nav-link">Logout</button>
+                              </form> --}}
+                            <a class="nav-link px-2" href="{{ route('auth.logout') }}">Logout</a>
+                        </ul>
+                    @endauth
+                    @guest
+                        <ul class="dropdown-menu">
+                            <a class="" href="{{ route('auth.login') }}">Sign In</a>
+                        @endguest
+                </div>
+
             </li>
         </ul>
 
