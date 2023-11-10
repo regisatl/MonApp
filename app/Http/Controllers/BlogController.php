@@ -11,11 +11,9 @@ use Illuminate\View\View;
 
 class BlogController extends Controller
 {
-
       //
       public function index(): View
       {
-
             return view('blog.index', [
                   'posts' => Post::with('tags', 'category')->paginate(10)
             ]);
@@ -23,7 +21,6 @@ class BlogController extends Controller
 
       public function show(string $slug, Post $post): RedirectResponse | View
       {
-
             if ($post->slug !== $slug) {
                   return to_route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
             }
@@ -45,7 +42,6 @@ class BlogController extends Controller
 
       public function store(CreatePostRequest $request)
       {
-
             $post = Post::create($request->validated());
 
             return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])->with('success', 'Your blog has been saved');
@@ -63,8 +59,6 @@ class BlogController extends Controller
 
       public function update(Post $post, CreatePostRequest $request)
       {
-
-
             $post->update($request->validated());
             $post->tags()->sync($request->validated('tags'));
             return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])->with('success', 'Your blog has been updated');

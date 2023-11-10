@@ -11,10 +11,13 @@ class AuthController extends Controller
       //
       public function login(): View
       {
-
             return view("auth.login");
       }
-
+      public function logout()
+      {
+            Auth::logout();
+            return to_route("auth.logout");
+      }
       public function signin(LoginRequest $request)
       {
             $credentials = $request->validated();
@@ -29,9 +32,4 @@ class AuthController extends Controller
             ])->onlyInput('email');
       }
 
-      public function logout()
-      {
-            Auth::logout();
-            return to_route("auth.logout");
-      }
 }

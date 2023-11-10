@@ -8,7 +8,6 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton">
 
 
     <!-- Latest compiled and minified CSS -->
@@ -22,7 +21,7 @@
     <style>
         html {
             scroll-behavior: smooth;
-            font-family: Poppins;
+            font-family: "Poppins";
             color: #65625E;
         }
 
@@ -31,7 +30,7 @@
         }
 
         h1 {
-            font-family: Anton;
+            font-family: "Anton";
             font-size: 1.5rem;
         }
 
@@ -51,16 +50,17 @@
         ul,
         li,
         a {
-            font-family: Poppins;
+            font-family: "Poppins";
             font-size: 1rem;
             font-weight: 700;
         }
 
-        @layer demo {
-            button {
-                all: unset;
-                font-family: Anton;
-            }
+        button {
+            font-family: "Poppins";
+        }
+
+        form.div {
+            font-family: "Poppins";
         }
     </style>
 
@@ -74,46 +74,57 @@
 
 <body>
 
-    <div class="container mt-5 mb-3">
 
-        <ul class="nav nav-underline nav-justified mb-5">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/">Accueil</a>
-            </li>
-            <li class="nav-item">
-                <a @class(['nav-link', 'active' => str_starts_with($routeName, 'blog.')]) href="{{ route('blog.index') }}">Blog</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            @auth
-                <li class="nav-item">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            {{ Auth::user()->name }}
-                        </button>
-                        <ul class="dropdown-menu px-5">
-                            {{-- <form class="nav-item px-2" action="{{ route('auth.logout') }}" method="post">
-                                    @method("delete")
-                                    @csrf
-                                    <button class="nav-link">Logout</button>
-                              </form> --}}
-                            <a class="nav-link px-2" href="{{ route('auth.logout') }}">Logout</a>
-                        </ul>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-3 mb-5">
+        <div class="container">
+            <a class="navbar-brand" href="#">APP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @class(['nav-link', 'active' => str_starts_with($routeName, 'blog.')]) href="{{ route('blog.index') }}">Blog</a>
+                    </li>
+
+                  <div class="d-flex justify-content-end">
+                        @auth
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <form class="nav-item px-2" action="{{ route('auth.logout') }}" method="post">
+                                          @method('delete')
+                                          @csrf
+                                          <button class="nav-link">Logout</button>
+                                      </form>
+                                </li>
+                            </ul>
+                        </li>
                     @endauth
+
                     @guest
-                        <ul class="dropdown-menu">
+                        <li class="nav-item">
                             <a class="" href="{{ route('auth.login') }}">Sign In</a>
-                        @endguest
-                </div>
+                        </li>
+                    @endguest
+                  </div>
+                </ul>
+            </div>
+        </div>
+      </nav>
 
-            </li>
-        </ul>
 
-    </div>
-
-    <div class="container">
+    <div class="container mt-5">
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

@@ -26,7 +26,7 @@
                 <div class="card-footer">
                     <strong class="text-secondary">Tags :</strong>
                     @foreach ($post->tags as $tag)
-                        <small class="badge bg-secondary"> {{ $tag->name }} </small>
+                        <small class="badge bg-secondary pb-2"> {{ $tag->name }} </small>
                     @endforeach
                 </div>
             @endif
