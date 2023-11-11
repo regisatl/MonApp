@@ -16,7 +16,7 @@ class AuthController extends Controller
       public function logout()
       {
             Auth::logout();
-            return to_route("auth.logout");
+            return to_route("auth.login");
       }
       public function signin(LoginRequest $request)
       {

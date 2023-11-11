@@ -15,12 +15,14 @@
                 <p class="small">
 
                     @if ($post->category)
-                       <strong class="text-secondary"> Catégorie :</strong> <strong class="text-primary"> {{ $post->category?->name }}</strong>
+                        <strong class="text-secondary"> Catégorie :</strong> <strong class="text-primary">
+                            {{ $post->category?->name }}</strong>
                     @endif
 
                 </p>
                 <a href="{{ route('blog.show', ['slug' => $post->slug, 'post' => $post->id]) }}" class="btn btn-primary">View
                     More</a>
+                <a href="{{ route('blog.edit', ['slug' => $post->slug, 'post' => $post->id]) }}" class="btn btn-primary">Update this article</a>
             </div>
             @if (!$post->tags->isEmpty())
                 <div class="card-footer">

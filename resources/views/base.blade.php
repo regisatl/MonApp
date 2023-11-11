@@ -8,6 +8,7 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton">
 
 
     <!-- Latest compiled and minified CSS -->
@@ -78,7 +79,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary py-3 mb-5">
         <div class="container">
-            <a class="navbar-brand" href="#">APP</a>
+            <a class="navbar-brand" href="#">MONAPP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -92,36 +93,46 @@
                     <li class="nav-item">
                         <a @class(['nav-link', 'active' => str_starts_with($routeName, 'blog.')]) href="{{ route('blog.index') }}">Blog</a>
                     </li>
-
-                  <div class="d-flex justify-content-end">
-                        @auth
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                {{ Auth::user()->name }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <form class="nav-item px-2" action="{{ route('auth.logout') }}" method="post">
-                                          @method('delete')
-                                          @csrf
-                                          <button class="nav-link">Logout</button>
-                                      </form>
-                                </li>
-                            </ul>
+                    @auth
+                        <li class="nav-item">
+                            <a @class(['nav-link', 'active' => str_starts_with($routeName, 'blog.')]) href="{{ route('blog.create') }}">Create</a>
                         </li>
                     @endauth
 
-                    @guest
-                        <li class="nav-item">
-                            <a class="" href="{{ route('auth.login') }}">Sign In</a>
-                        </li>
-                    @endguest
-                  </div>
-                </ul>
             </div>
+            </ul>
+
+            @auth
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form class="nav-item px-2" action="{{ route('auth.logout') }}" method="POST">
+                                    @csrf
+                                    <button class="nav-link"
+                                        onclick="event.preventDefault(); this.closest('form').submit();">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endauth
+
+            @guest
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="list-unstyled nav-link" href="{{ route('auth.login') }}">Sign In</a>
+                    </li>
+                </ul>
+            @endguest
+
         </div>
-      </nav>
+        </div>
+    </nav>
 
 
     <div class="container mt-5">
