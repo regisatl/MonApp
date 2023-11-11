@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class BlogController extends Controller
@@ -42,7 +43,7 @@ class BlogController extends Controller
 
       public function store(CreatePostRequest $request)
       {
-            $post = Post::create($request->validated());
+            $post = Post::create($this->extractData(new Post(), $request));
 
             return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])->with('success', 'Your blog has been saved');
       }
@@ -59,8 +60,26 @@ class BlogController extends Controller
 
       public function update(Post $post, CreatePostRequest $request)
       {
-            $post->update($request->validated());
+            $post->update($this->extractData($post, $request));
             $post->tags()->sync($request->validated('tags'));
             return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])->with('success', 'Your blog has been updated');
       }
+
+      private function extractData( Post $post, CreatePostRequest $request) : array {
+            $data = $request->validated();
+            /** @var UploadedFile | null $image */
+            $image = $request->validated('image');
+            if($image === null || $image->getErro()){
+                  return $data;
+            }
+            if($post->image) {
+                  Storage::disk('public')->delete($post->image);
+            }
+            if($image !== null && !$image -> getError()) {
+
+                  $data['image'] = $image->store('blog', 'public');
+            }
+      }
+
+
 }

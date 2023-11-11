@@ -7,6 +7,9 @@
 
     @foreach ($posts as $post)
         <div class="card mt-3 mb-3">
+           @if($post-> image) 
+            <img src="{{ $post-> imageUrl() }}" class="img-fluid" alt="Pictures" style="width: 100%; height:200px; object-fit:cover;">
+           @endif
             <h2 class="card-header">
                 {{ $post->title }}
             </h2>
@@ -20,9 +23,11 @@
                     @endif
 
                 </p>
-                <a href="{{ route('blog.show', ['slug' => $post->slug, 'post' => $post->id]) }}" class="btn btn-primary">View
+                <a href="{{ route('blog.show', ['slug' => $post->slug, 'post' => $post->id]) }}"
+                    class="btn btn-primary">View
                     More</a>
-                <a href="{{ route('blog.edit', ['slug' => $post->slug, 'post' => $post->id]) }}" class="btn btn-primary">Update this article</a>
+                <a href="{{ route('blog.edit', ['slug' => $post->slug, 'post' => $post->id]) }}"
+                    class="btn btn-primary">Update this article</a>
             </div>
             @if (!$post->tags->isEmpty())
                 <div class="card-footer">

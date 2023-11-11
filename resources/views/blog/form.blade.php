@@ -1,4 +1,4 @@
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     @csrf
     @method($post->id ? 'PATCH' : 'POST')
     <div class="form-floating mb-3">
@@ -51,6 +51,15 @@
             {{ $message }}
         @enderror
     </div>
+
+    <div class="form-floating mb-3">
+      <input type="file" class="form-control" name="image" placeholder="image"
+          value="{{ old('image', $post->image) }}">
+      <label for="image">Title</label>
+      @error('image')
+          {{ $message }}
+      @enderror
+  </div>
 
     <button type="submit" class="btn btn-primary w-100 font-bold py-3 shadow">
 

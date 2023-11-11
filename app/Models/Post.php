@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @mixin IdeHelperPost
@@ -18,7 +19,8 @@ class Post extends Model
             'title',
             'slug',
             'content',
-            'category_id'
+            'category_id',
+            'image'
       ];
 
       public function category(): BelongsTo
@@ -30,4 +32,9 @@ class Post extends Model
       {
             return $this->belongsToMany(Tag::class);
       }
+
+      public function imageUrl() : string {
+            return Storage::disk('public')->url($this->image);
+      }
+
 }
