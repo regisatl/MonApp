@@ -53,13 +53,13 @@
     </div>
 
     <div class="form-floating mb-3">
-      <input type="file" class="form-control" name="image" placeholder="image"
-          value="{{ old('image', $post->image) }}">
-      <label for="image">Title</label>
-      @error('image')
-          {{ $message }}
-      @enderror
-  </div>
+        <input type="file" class="form-control" name="image" placeholder="image"
+            value="{{ old('image', $post->image) }}">
+        <label for="image">Image</label>
+        @error('image')
+            {{ $message }}
+        @enderror
+    </div>
 
     <button type="submit" class="btn btn-primary w-100 font-bold py-3 shadow">
 

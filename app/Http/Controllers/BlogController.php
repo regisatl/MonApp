@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -20,7 +21,7 @@ class BlogController extends Controller
             ]);
       }
 
-      public function show(string $slug, Post $post): RedirectResponse | View
+      public function show(string $slug, Post $post): RedirectResponse|View
       {
             if ($post->slug !== $slug) {
                   return to_route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
@@ -65,17 +66,18 @@ class BlogController extends Controller
             return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])->with('success', 'Your blog has been updated');
       }
 
-      private function extractData( Post $post, CreatePostRequest $request) : array {
+      private function extractData(Post $post, CreatePostRequest $request)
+      {
             $data = $request->validated();
             /** @var UploadedFile | null $image */
             $image = $request->validated('image');
-            if($image === null || $image->getErro()){
+            if ($image === null || $image->getError()) {
                   return $data;
             }
-            if($post->image) {
+            if ($post->image) {
                   Storage::disk('public')->delete($post->image);
             }
-            if($image !== null && !$image -> getError()) {
+            if ($image !== null && !$image->getError()) {
 
                   $data['image'] = $image->store('blog', 'public');
             }
