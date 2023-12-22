@@ -33,7 +33,8 @@ class Post extends Model
             return $this->belongsToMany(Tag::class);
       }
 
-      public function imageUrl() : string {
+      public function imageUrl(): string
+      {
             return Storage::disk('public')->url($this->image);
       }
 

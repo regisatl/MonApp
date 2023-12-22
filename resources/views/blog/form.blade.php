@@ -1,4 +1,4 @@
-<form action="" method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data">
     @csrf
     @method($post->id ? 'PATCH' : 'POST')
     <div class="form-floating mb-3">
