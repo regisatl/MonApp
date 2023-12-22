@@ -66,7 +66,7 @@ class BlogController extends Controller
             return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])->with('success', 'Your blog has been updated');
       }
 
-      private function extractData(Post $post, CreatePostRequest $request)
+      private function extractData(Post $post, CreatePostRequest $request): array
       {
             $data = $request->validated();
             /** @var UploadedFile | null $image */
@@ -77,10 +77,8 @@ class BlogController extends Controller
             if ($post->image) {
                   Storage::disk('public')->delete($post->image);
             }
-            if ($image !== null && !$image->getError()) {
-
-                  $data['image'] = $image->store('blog', 'public');
-            }
+            $data['image'] = $image->store('blog', 'public');
+            return $data;
       }
 
 

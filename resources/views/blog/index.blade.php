@@ -8,7 +8,7 @@
     @foreach ($posts as $post)
         <div class="card mt-3 mb-3">
            @if($post-> image)
-            <img src="/storage/{{ $post-> imageUrl() }}" class="img-fluid" alt="Pictures" style="width: 100%; height:200px; object-fit:cover;">
+            <img src="{{ $post-> imageUrl() }}" class="img-fluid" alt="Pictures" style="width: 100%; height:200px; object-fit:cover;">
            @endif
             <h2 class="card-header">
                 {{ $post->title }}
